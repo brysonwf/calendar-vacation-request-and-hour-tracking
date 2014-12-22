@@ -15,20 +15,12 @@
 		$_SESSION['paydate']+=(60*60*24*14);
 	}
 	
-	
 	if( (isset($_SESSION['logged']) && ($_SESSION['logged'] == true))){
 	}else{
 		$_SESSION['logged'] = false;
 	}
-	
-	
-	$con = mysql_connect("localhost","mojostuff","mojoman2010");
 
-	if (!$con){
-		die('Could not connect: ' . mysql_error());
-	}
-	
-	mysql_select_db("mojostuff", $con);
+	include '_database.php';
 	
 	$page_message = '';
 	if ( isset($_POST['login-form-post']) && ($_POST['login-form-post'] == true)){

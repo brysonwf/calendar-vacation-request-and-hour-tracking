@@ -21,7 +21,8 @@
 	}
 
 	include '_database.php';
-	
+
+
 	$page_message = '';
 	if ( isset($_POST['login-form-post']) && ($_POST['login-form-post'] == true)){
 		$_SESSION['admin'] = 0;

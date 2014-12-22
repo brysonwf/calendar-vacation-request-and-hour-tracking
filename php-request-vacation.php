@@ -139,9 +139,9 @@ $requestcount = $row_requestcount['totalhours'];
 	mail('vacation@mojotone.com', $subject, $message, $headers);
 	
 	if ($_SESSION['manager'] != ''){
-		echo 'mananger: '.$_SESSION['manager'];
+//		echo 'mananger: '.$_SESSION['manager'];
 		mail($_SESSION['manager'], $subject, $message, $headers);
 	}
 	
 	mysql_close($con);
-?> 
+?>

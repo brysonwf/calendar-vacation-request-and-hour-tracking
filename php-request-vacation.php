@@ -122,26 +122,35 @@ $requestcount = $row_requestcount['totalhours'];
 
 <? 
 
-	$subject = 'Mojostuff.com - Vacation Request - '.$item_email;
+$subject = 'Mojostuff.com - Vacation Request - '.$item_email;
+
+$message = '<a href="http://mojostuff.com/mi">Mojo Internals</a><br><br>';
+$message.= $item_email.' ('.$requestcount.' hrs) requests off for '.$hours.' on '.$switch_date. "<br><br>";
+$message.= 'Reason: '.urldecode($reason). "<br>";
+
+$headers = 'MIME-Version: 1.0' . "\r\n";
+$headers.= 'Content-type: text/html; charset=iso-8859-1' . "<br>";
+
+$headers.= 'From: '.$item_email. "\r\n" .
+	'Reply-To: '.$item_email. "\r\n" .
+	'X-Mailer: PHP/' . phpversion();
+
+
+$recipients = array(
+	"vanessa@mojotone.com",
+	"loraine@mojotone.com",
+	"michael@mojotone.com",
+	"bryson@mojotone.com"
+);
+if ($_SESSION['manager'] != ''){
+	$recipients[] = $_SESSION['manager'];
+}
+
+$email_to = implode(',', $recipients); // your email address
+
+mail($email_to, $subject, $message, $headers);
+
 	
-	$message = '<a href="http://mojostuff.com/mi">Mojo Internals</a><br><br>';
-	$message.= $item_email.' ('.$requestcount.' hrs) requests off for '.$hours.' on '.$switch_date. "<br><br>";
-	$message.= 'Reason: '.urldecode($reason). "<br>";
-	
-	$headers = 'MIME-Version: 1.0' . "\r\n";
-	$headers.= 'Content-type: text/html; charset=iso-8859-1' . "<br>";
-		
-	$headers.= 'From: '.$item_email. "\r\n" .
-		'Reply-To: '.$item_email. "\r\n" .
-		'X-Mailer: PHP/' . phpversion();
-	//mail('bryson@mojotone.com', $subject, $message, $headers);
-	
-	mail('vacation@mojotone.com', $subject, $message, $headers);
-	
-	if ($_SESSION['manager'] != ''){
-//		echo 'mananger: '.$_SESSION['manager'];
-		mail($_SESSION['manager'], $subject, $message, $headers);
-	}
-	
-	mysql_close($con);
+mysql_close($con);
+
 ?>
